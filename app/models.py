@@ -2,23 +2,14 @@ from django.db import models
 
 from django.db import models
 
-class Company(models.Model):
-    name = models.CharField(max_length=255)
-    address = models.TextField(blank=True, null=True)
-
-
-
 class Product(models.Model):
-    name = models.CharField(max_length=255)
-    barcode = models.CharField(max_length=50, unique=True)  # UPC/EAN/GTIN
-    product_id = models.CharField(max_length=50, blank=True, null=True)
-    batch_code = models.CharField(max_length=50, blank=True, null=True)
-    category = models.CharField(max_length=100, blank=True, null=True)
-    expiry_date = models.DateField(blank=True, null=True)
-    approved = models.BooleanField(default=False)
-
-    company = models.ForeignKey(Company, on_delete=models.CASCADE, related_name="app")
+    client_name = models.CharField(max_length=255, null=True, blank=True)
+    product_name = models.CharField(max_length=255, null=True, blank=True)
+    product_category = models.CharField(max_length=255, null=True, blank=True)
+    expiry_date = models.CharField(max_length=50, null=True, blank=True)  # keep as text for now
+    status = models.CharField(max_length=50, null=True, blank=True)
 
     def __str__(self):
-        return self.name
+        return f"{self.product_name} ({self.client_name})"
+
 
